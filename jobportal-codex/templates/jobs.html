@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}채용 공고 — Job Portal{% endblock %}
+{% block content %}
+<h1>채용 공고 <span class="muted">({{ total }}건)</span></h1>
+<form class="filters" method="get" action="/jobs">
+  <input type="text" name="q" value="{{ q }}" placeholder="직무, 회사명 검색" />
+  <select name="category">
+    <option value="">모든 직군</option>
+    {% for c in categories %}<option value="{{ c }}" {% if c == category %}selected{% endif %}>{{ c }}</option>{% endfor %}
+  </select>
+  <select name="emp_type">
+    <option value="">모든 형태</option>
+    {% for t, label in EMPLOYMENT_TYPE_LABELS.items() %}
+    <option value="{{ t }}" {% if t == emp_type %}selected{% endif %}>{{ label }}</option>{% endfor %}
+  </select>
+  <button class="btn btn-primary" type="submit">필터 적용</button>
+</form>
+<div class="job-list">
+  {% for job in jobs %}
+  <a class="card job-row" href="/jobs/{{ job['id'] }}">
+    <span class="logo-dot" style="background: {{ job['logo_color'] }}"></span>
+    <div class="job-row-main">
+      <h3>{{ job['title'] }}</h3>
+      <p class="muted">{{ job['company_name'] }} · {{ job['location'] }} · {{ job['posted_at'] }}</p>
+    </div>
+    <div class="job-row-side">
+      <span class="badge">{{ job['employment_type'] | employment_label }}</span>
+      <span class="salary">{{ job['salary_min'] | salary_label }} 이상</span>
+    </div>
+  </a>
+  {% else %}<p class="muted">조건에 맞는 공고가 없습니다.</p>{% endfor %}
+</div>
+<div class="pagination">
+  {% if page > 1 %}<a class="btn btn-outline" href="/jobs?page={{ page - 1 }}&q={{ q }}&category={{ category }}&emp_type={{ emp_type }}">← 이전</a>{% endif %}
+  <span class="muted">{{ page }} / {{ pages }}</span>
+  {% if page < pages %}<a class="btn btn-outline" href="/jobs?page={{ page + 1 }}&q={{ q }}&category={{ category }}&emp_type={{ emp_type }}">다음 →</a>{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}저장한 공고 — Job Portal{% endblock %}
+{% block content %}
+<h1>저장한 공고 ({{ jobs | length }}건)</h1>
+<div class="job-list">
+  {% for job in jobs %}
+  <a class="card job-row" href="/jobs/{{ job['id'] }}">
+    <span class="logo-dot" style="background: {{ job['logo_color'] }}"></span>
+    <div class="job-row-main"><h3>{{ job['title'] }}</h3>
+      <p class="muted">{{ job['company_name'] }} · 저장일 {{ job['saved_at'] }}</p></div>
+    <span class="badge">★</span>
+  </a>
+  {% else %}<p class="muted">저장한 공고가 없습니다.</p>{% endfor %}
+</div>
+{% endblock %}

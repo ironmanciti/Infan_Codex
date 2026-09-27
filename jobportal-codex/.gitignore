@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+jobportal.db
+jobportal.db-shm
+jobportal.db-wal
+.venv/
+.env

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}{{ company['name'] }} — Job Portal{% endblock %}
+{% block content %}
+<div class="card detail">
+  <div class="detail-head">
+    <span class="logo-dot lg" style="background: {{ company['logo_color'] }}">{{ company['name'][0] }}</span>
+    <div>
+      <h1>{{ company['name'] }}</h1>
+      <p class="muted">{{ company['industry'] }} · {{ company['location'] }} · <a href="{{ company['website'] }}">{{ company['website'] }}</a></p>
+      <p>{{ company['description'] }}</p>
+    </div>
+  </div>
+</div>
+<h2>진행 중인 공고 ({{ jobs | length }}건)</h2>
+<div class="job-list">
+  {% for job in jobs %}
+  <a class="card job-row" href="/jobs/{{ job['id'] }}">
+    <div class="job-row-main"><h3>{{ job['title'] }}</h3>
+      <p class="muted">{{ job['location'] }} · {{ job['posted_at'] }}</p></div>
+    <span class="badge">{{ job['employment_type'] | employment_label }}</span>
+  </a>
+  {% endfor %}
+</div>
+{% endblock %}

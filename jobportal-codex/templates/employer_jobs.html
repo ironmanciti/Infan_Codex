@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}공고 관리 — Job Portal{% endblock %}
+{% block content %}
+<h1>{{ company['name'] }} — 공고 관리</h1>
+<div class="two-col">
+  <div>
+    <h2>등록된 공고 ({{ jobs | length }}건)</h2>
+    <div class="job-list">
+      {% for job in jobs %}
+      <div class="card job-row">
+        <div class="job-row-main"><h3>{{ job['title'] }}</h3>
+          <p class="muted">{{ job['location'] }} · {{ job['posted_at'] }} · {{ job['employment_type'] | employment_label }}</p></div>
+        <form method="post" action="/employer/jobs/{{ job['id'] }}/delete">
+          <button class="btn btn-outline danger">삭제</button>
+        </form>
+      </div>
+      {% else %}<p class="muted">등록된 공고가 없습니다.</p>{% endfor %}
+    </div>
+  </div>
+  <form class="card form" method="post" action="/employer/jobs">
+    <h2>새 공고 등록</h2>
+    <label>직무명 <input type="text" name="title" required /></label>
+    <label>직군 <input type="text" name="category" required placeholder="백엔드, 프론트엔드..." /></label>
+    <label>근무지 <input type="text" name="location" required /></label>
+    <label>고용 형태
+      <select name="emp_type">
+        {% for t, label in EMPLOYMENT_TYPE_LABELS.items() %}<option value="{{ t }}">{{ label }}</option>{% endfor %}
+      </select></label>
+    <label>연봉 하한(원) <input type="number" name="salary_min" required placeholder="45000000" /></label>
+    <label>연봉 상한(원) <input type="number" name="salary_max" required placeholder="65000000" /></label>
+    <label>설명 <textarea name="description" rows="4"></textarea></label>
+    <button class="btn btn-primary" type="submit">등록</button>
+  </form>
+</div>
+{% endblock %}

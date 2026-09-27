@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}로그인 — Job Portal{% endblock %}
+{% block content %}
+<div class="auth-wrap">
+  <form class="card form" method="post" action="/login">
+    <h1>로그인</h1>
+    {% if error %}<div class="banner warning">{{ error }}</div>{% endif %}
+    <label>이메일 <input type="email" name="email" required /></label>
+    <label>비밀번호 <input type="password" name="password" required /></label>
+    <button class="btn btn-primary" type="submit">로그인</button>
+  </form>
+  <div class="card demo-creds">
+    <h3>데모 계정</h3>
+    <p><strong>관리자</strong> admin@demo.com / admin123</p>
+    <p><strong>고용주</strong> employer@demo.com / employer123</p>
+    <p><strong>구직자</strong> seeker@demo.com / seeker123</p>
+  </div>
+</div>
+{% endblock %}

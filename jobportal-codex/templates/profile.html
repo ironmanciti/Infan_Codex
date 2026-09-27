@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}내 프로필 — Job Portal{% endblock %}
+{% block content %}
+<h1>내 프로필</h1>
+{% if saved %}<div class="banner success">✓ 프로필이 저장되었습니다.</div>{% endif %}
+<div class="card">
+  <div class="section-head"><h3>프로필 완성도</h3><strong>{{ completion }}%</strong></div>
+  <div class="progress-track"><div class="progress-bar" style="width: {{ completion }}%"></div></div>
+</div>
+<form class="card form" method="post" action="/profile">
+  <label>프로필 사진 URL <input type="url" name="photo_url" value="{{ profile['photo_url'] }}" placeholder="https://..." /></label>
+  <label>전화번호 <input type="text" name="phone" value="{{ profile['phone'] }}" /></label>
+  <label>한 줄 소개 <input type="text" name="headline" value="{{ profile['headline'] }}" /></label>
+  <label>지역 <input type="text" name="location" value="{{ profile['location'] }}" /></label>
+  <label>보유 스킬 (쉼표 구분) <input type="text" name="skills" value="{{ profile['skills'] }}" /></label>
+  <label>이력서 URL <input type="url" name="resume_url" value="{{ profile['resume_url'] }}" placeholder="https://..." /></label>
+  <button class="btn btn-primary" type="submit">저장</button>
+</form>
+{% endblock %}

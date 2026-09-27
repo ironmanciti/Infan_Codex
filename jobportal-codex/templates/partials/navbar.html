@@ -1,0 +1,27 @@
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="/" class="brand">Job<span>Portal</span></a>
+    <div class="nav-links">
+      <a href="/jobs">채용 공고</a>
+      <a href="/companies">회사</a>
+      {% if user and user['role'] == 'seeker' %}
+        <a href="/applied">지원 내역</a>
+        <a href="/saved">저장한 공고</a>
+        <a href="/profile">내 프로필</a>
+      {% elif user and user['role'] == 'employer' %}
+        <a href="/employer/jobs">공고 관리</a>
+      {% elif user and user['role'] == 'admin' %}
+        <a href="/admin">관리자</a>
+      {% endif %}
+    </div>
+    <div class="nav-actions">
+      <button id="theme-toggle" aria-label="테마 전환">🌙</button>
+      {% if user %}
+        <span class="user-chip">{{ user['name'] }} · {{ ROLE_LABELS.get(user['role'], user['role']) }}</span>
+        <a class="btn btn-outline" href="/logout">로그아웃</a>
+      {% else %}
+        <a class="btn btn-primary" href="/login">로그인</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>

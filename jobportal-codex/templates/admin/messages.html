@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}문의 메시지 — Job Portal{% endblock %}
+{% block content %}
+<h1>문의 메시지 ({{ messages | length }}건)</h1>
+<div class="job-list">
+  {% for m in messages %}
+  <div class="card">
+    <div class="section-head"><h3>{{ m['subject'] }}</h3><span class="muted">{{ m['created_at'] }}</span></div>
+    <p class="muted">{{ m['name'] }} &lt;{{ m['email'] }}&gt;</p>
+    <p>{{ m['message'] }}</p>
+  </div>
+  {% else %}<p class="muted">접수된 문의가 없습니다.</p>{% endfor %}
+</div>
+{% endblock %}

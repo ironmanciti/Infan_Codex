@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}고용주 권한 관리 — Job Portal{% endblock %}
+{% block content %}
+<h1>고용주 권한 관리</h1>
+<div class="table-wrap">
+  <table>
+    <tr><th>ID</th><th>이름</th><th>이메일</th><th>역할</th><th>소속 회사</th><th>권한 부여</th></tr>
+    {% for u in users %}
+    <tr>
+      <td>{{ u['id'] }}</td><td>{{ u['name'] }}</td><td>{{ u['email'] }}</td>
+      <td><span class="badge">{{ ROLE_LABELS.get(u['role'], u['role']) }}</span></td>
+      <td>{{ u['company_name'] or '—' }}</td>
+      <td>
+        {% if u['role'] == 'seeker' %}
+        <form method="post" action="/admin/employers/grant" class="inline-form">
+          <input type="hidden" name="user_id" value="{{ u['id'] }}" />
+          <select name="company_id">
+            {% for c in companies %}<option value="{{ c['id'] }}">{{ c['name'] }}</option>{% endfor %}
+          </select>
+          <button class="btn btn-outline">고용주로 전환</button>
+        </form>
+        {% else %}—{% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

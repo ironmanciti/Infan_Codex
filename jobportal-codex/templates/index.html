@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+{% if profile_warning %}
+<div class="banner warning">
+  ⚠️ 프로필을 완성하세요! 현재 완성도 {{ completion }}% — 프로필이 100%일 때 지원 성공률이 높아집니다.
+  <a href="/profile">프로필 완성하러 가기 →</a>
+</div>
+{% endif %}
+<section class="hero">
+  <h1>다음 기회를 찾아보세요</h1>
+  <p>50개 회사의 1,000건 이상의 채용 공고. 프로필 하나로 무한한 가능성을 열어보세요.</p>
+  <form class="search-bar" action="/jobs" method="get">
+    <input type="text" name="q" placeholder="직무, 회사명으로 검색..." />
+    <button class="btn btn-primary" type="submit">검색</button>
+  </form>
+</section>
+<section>
+  <div class="section-head"><h2>최신 채용 공고</h2><a href="/jobs">모두 보기 →</a></div>
+  <div class="grid grid-3">
+    {% for job in jobs %}
+    <a class="card job-card" href="/jobs/{{ job['id'] }}">
+      <span class="logo-dot" style="background: {{ job['logo_color'] }}"></span>
+      <h3>{{ job['title'] }}</h3>
+      <p class="muted">{{ job['company_name'] }} · {{ job['location'] }}</p>
+      <p><span class="badge">{{ job['employment_type'] | employment_label }}</span>
+         <span class="badge badge-soft">{{ job['category'] }}</span></p>
+      <p class="salary">{{ job['salary_min'] | salary_label }} ~ {{ job['salary_max'] | salary_label }}</p>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+<section>
+  <div class="section-head"><h2>주목받는 회사</h2><a href="/companies">모두 보기 →</a></div>
+  <div class="grid grid-4">
+    {% for c in companies %}
+    <a class="card company-card" href="/companies/{{ c['id'] }}">
+      <span class="logo-dot lg" style="background: {{ c['logo_color'] }}">{{ c['name'][0] }}</span>
+      <h3>{{ c['name'] }}</h3>
+      <p class="muted">{{ c['industry'] }} · 공고 {{ c['job_count'] }}건</p>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

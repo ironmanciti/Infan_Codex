@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}{{ job['title'] }} — Job Portal{% endblock %}
+{% block content %}
+<div class="card detail">
+  <div class="detail-head">
+    <span class="logo-dot lg" style="background: {{ job['logo_color'] }}">{{ job['company_name'][0] }}</span>
+    <div>
+      <h1>{{ job['title'] }}</h1>
+      <p class="muted"><a href="/companies/{{ job['company_id'] }}">{{ job['company_name'] }}</a>
+        · {{ job['location'] }} · {{ job['posted_at'] }}</p>
+      <p><span class="badge">{{ job['employment_type'] | employment_label }}</span>
+         <span class="badge badge-soft">{{ job['category'] }}</span>
+         <span class="salary">{{ job['salary_min'] | salary_label }} ~ {{ job['salary_max'] | salary_label }}</span></p>
+    </div>
+  </div>
+  <p>{{ job['description'] }}</p>
+  {% if user and user['role'] == 'seeker' %}
+  <div class="detail-actions">
+    {% if applied %}<span class="badge badge-success">✓ 지원 완료</span>
+    {% else %}<form method="post" action="/jobs/{{ job['id'] }}/apply"><button class="btn btn-primary">지원하기</button></form>{% endif %}
+    {% if saved %}<span class="badge">★ 저장됨</span>
+    {% else %}<form method="post" action="/jobs/{{ job['id'] }}/save"><button class="btn btn-outline">☆ 저장하기</button></form>{% endif %}
+  </div>
+  {% elif not user %}
+  <p class="muted">지원하려면 <a href="/login">로그인</a>하세요.</p>
+  {% endif %}
+</div>
+{% endblock %}

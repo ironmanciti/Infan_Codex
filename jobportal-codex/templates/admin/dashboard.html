@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}관리자 — Job Portal{% endblock %}
+{% block content %}
+<h1>관리자 대시보드</h1>
+<div class="grid grid-3">
+  <a class="card stat-card" href="/admin/companies"><h3>{{ companies | length }}</h3><p class="muted">등록된 회사 · 관리하기 →</p></a>
+  <a class="card stat-card" href="/admin/messages"><h3>{{ messages | length }}</h3><p class="muted">문의 메시지 · 확인하기 →</p></a>
+  <a class="card stat-card" href="/admin/employers"><h3>{{ users | length }}</h3><p class="muted">사용자 · 고용주 권한 관리 →</p></a>
+</div>
+{% endblock %}

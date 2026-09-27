@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}문의하기 — Job Portal{% endblock %}
+{% block content %}
+<h1>문의하기</h1>
+{% if sent %}<div class="banner success">✓ 문의가 접수되었습니다. 빠르게 답변드리겠습니다.</div>{% endif %}
+<form class="card form" method="post" action="/contact">
+  <label>이름 <input type="text" name="name" required /></label>
+  <label>이메일 <input type="email" name="email" required /></label>
+  <label>제목 <input type="text" name="subject" required /></label>
+  <label>메시지 <textarea name="message" rows="6" required></textarea></label>
+  <button class="btn btn-primary" type="submit">보내기</button>
+</form>
+{% endblock %}

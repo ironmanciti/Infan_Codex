@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}지원 내역 — Job Portal{% endblock %}
+{% block content %}
+<h1>지원 내역 ({{ jobs | length }}건)</h1>
+<div class="job-list">
+  {% for job in jobs %}
+  <a class="card job-row" href="/jobs/{{ job['id'] }}">
+    <span class="logo-dot" style="background: {{ job['logo_color'] }}"></span>
+    <div class="job-row-main"><h3>{{ job['title'] }}</h3>
+      <p class="muted">{{ job['company_name'] }} · 지원일 {{ job['applied_at'] }}</p></div>
+    <span class="badge badge-success">{{ job['status'] | status_label }}</span>
+  </a>
+  {% else %}<p class="muted">아직 지원한 공고가 없습니다.</p>{% endfor %}
+</div>
+{% endblock %}

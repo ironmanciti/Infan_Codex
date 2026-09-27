@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}회사 관리 — Job Portal{% endblock %}
+{% block content %}
+<h1>회사 관리</h1>
+<div class="two-col">
+  <div class="table-wrap">
+    <table>
+      <tr><th>이름</th><th>업종</th><th>지역</th><th></th></tr>
+      {% for c in companies %}
+      <tr>
+        <td>{{ c['name'] }}</td><td>{{ c['industry'] }}</td><td>{{ c['location'] }}</td>
+        <td><form method="post" action="/admin/companies/{{ c['id'] }}/delete">
+          <button class="btn btn-outline danger">삭제</button></form></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <form class="card form" method="post" action="/admin/companies">
+    <h2>새 회사 추가</h2>
+    <label>이름 <input type="text" name="name" required /></label>
+    <label>업종 <input type="text" name="industry" required /></label>
+    <label>지역 <input type="text" name="location" required /></label>
+    <label>웹사이트 <input type="url" name="website" /></label>
+    <label>설명 <textarea name="description" rows="3"></textarea></label>
+    <button class="btn btn-primary" type="submit">추가</button>
+  </form>
+</div>
+{% endblock %}

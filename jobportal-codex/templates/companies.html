@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}회사 목록 — Job Portal{% endblock %}
+{% block content %}
+<h1>회사 목록</h1>
+<form class="filters" method="get" action="/companies">
+  <input type="text" name="q" value="{{ q }}" placeholder="회사명 검색" />
+  <button class="btn btn-primary" type="submit">검색</button>
+</form>
+<div class="grid grid-4">
+  {% for c in companies %}
+  <a class="card company-card" href="/companies/{{ c['id'] }}">
+    <span class="logo-dot lg" style="background: {{ c['logo_color'] }}">{{ c['name'][0] }}</span>
+    <h3>{{ c['name'] }}</h3>
+    <p class="muted">{{ c['industry'] }} · {{ c['location'] }}</p>
+    <p class="muted">공고 {{ c['job_count'] }}건</p>
+  </a>
+  {% endfor %}
+</div>
+{% endblock %}
