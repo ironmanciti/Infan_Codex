@@ -1,5 +1,11 @@
+# 앱 실행
 fastapi
 uvicorn[standard]
 jinja2
 python-multipart
 faker
+ 
+# 테스트 · 린트 (AGENTS.md 의 pytest / ruff check . 에 필요)
+pytest
+httpx
+ruff

@@ -186,6 +186,7 @@ style: fix spacing on mobile job list
 - 변경 내용이 명확하지 않거나 추가 설명이 필요한 경우 커밋 본문(body)을 작성합니다.
 - main에 직접 push 금지. 항상 PR로
 - 커밋 전 `pytest`와 `ruff check .` 실행
+- 연결된 이슈가 있으면 PR 본문에 Closes #이슈번호 를 적는다
 
 ### Pull Request 규칙
 
